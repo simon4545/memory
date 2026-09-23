@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mcp-memory-mail",
+  "compatibility_date": "2026-06-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "src/index.js",
+  "observability": {
+    "enabled": true
+  },
+  // 1. wrangler d1 create memory  -> 把返回的 database_id 填到下面
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "memory",
+      "database_id": "18572754-040c-4d2a-9c1a-b2ac1ef53e3b"
+    }
+  ],
+  // 2. wrangler vectorize create memory --dimensions=1024 --metric=cosine
+  "vectorize": [
+    {
+      "binding": "VEC",
+      "index_name": "memory"
+    }
+  ],
+  // 3. Workers AI，用来生成 embedding（免费档每天 10,000 Neurons）
+  "ai": {
+    "binding": "AI"
+  },
+  // 4. QQ SMTP。授权码用 secret 存（不入配置文件）：
+  //    wrangler secret put SMTP_USER  -> 你的 QQ 邮箱地址
+  //    wrangler secret put SMTP_PASS  -> QQ 授权码（不是登录密码）
+  "vars": {
+    "MAIL_FROM": "" // 留空则用 SMTP_USER 作为发件人
+  }
+}

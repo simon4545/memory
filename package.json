@@ -1,0 +1,29 @@
+{
+  "name": "mcp-memory-mail",
+  "description": "Personal remote MCP server on Cloudflare Workers: email sending + cross-machine memory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init:local": "wrangler d1 execute memory --local --file=./schema.sql",
+    "db:init:remote": "wrangler d1 execute memory --remote --file=./schema.sql",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "@modelcontextprotocol/server": "2.0.0",
+    "agents": "^0.23.0",
+    "mimetext": "^3.0.28",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "wrangler": "^4.115.0"
+  },
+  "allowScripts": {
+    "workerd@1.20260911.1": true,
+    "esbuild@0.28.2": true,
+    "esbuild@0.28.1": true,
+    "core-js-pure@3.50.0": true
+  }
+}
